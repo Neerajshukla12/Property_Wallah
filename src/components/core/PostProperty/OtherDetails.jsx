@@ -45,13 +45,31 @@ export default function OtherDetails() {
     dispatch(incrementStep());
   };
 
-  const handleConfirm = () => {
-    dispatch(saveFormData({ features }));
-    dispatch(resetStep());
-    toast.success('Property posted successfully');
-    navigate('/');
-    dispatch(createProperty(formData));
-    dispatch(resetForm());
+  const handleConfirm = async () => {
+    const otherFeatures = Object.values(features);
+    dispatch(saveFormData({ otherFeatures }));
+
+    // Build the full payload including Cloudinary photo URLs from Redux
+    const fullPayload = {
+      formData: {
+        ...formData.formData,
+        otherFeatures,
+        media: {
+          photos: formData.photos || [],
+          videos: [],
+        },
+      },
+      isFinished: formData.isFinished,
+    };
+
+    try {
+      await dispatch(createProperty(fullPayload));
+      toast.success('Property posted successfully');
+      dispatch(resetForm());
+      navigate('/');
+    } catch (err) {
+      toast.error('Failed to post property. Please try again.');
+    }
   };
 
   const handleCancel = () => {

@@ -184,9 +184,10 @@ const PropertiesListSection = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchAllProperties());
-  }, [dispatch]);
+  // Removed duplicate fetchAllProperties dispatch - handled in App.jsx mount
+  // useEffect(() => {
+  //   dispatch(fetchAllProperties());
+  // }, [dispatch]);
 
   useEffect(() => {
     const handleScroll = () => {

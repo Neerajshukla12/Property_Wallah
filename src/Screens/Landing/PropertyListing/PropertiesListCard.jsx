@@ -32,8 +32,8 @@ const PropertiesListCard = ({ property }) => {
     state = "",
     price = 0,
     propertyArea = 0,
-    propertyImage = property?.media?.images?.[0] || 
-      "http://www.c21bowman.com/listings/ajax.rsp?_action=photo&uid=123076134&id=22578913",
+    propertyImage = property?.media?.photos?.[0] || 
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80",
     propertyName = property.title,
     propertyId = property._id,
     contactNo = "",

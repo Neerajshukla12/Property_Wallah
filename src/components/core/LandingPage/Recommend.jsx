@@ -29,7 +29,7 @@ const Data = [
     description:
       "Our couples-friendly rentals are perfect for couples looking to explore the city without worrying about the hassle of a larger apartment.",
     image:
-      "https://www.etchellsandyoung.co.za/assets/images/rentals-bg-p-1080.jpeg",
+      "https://via.placeholder.com/400x300?text=Couples+Friendly+Rentals&bg=F8E8E8&textColor=333",
   },
 ];
 

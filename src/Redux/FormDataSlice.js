@@ -16,7 +16,8 @@ const formDataSlice = createSlice({
       return { step: 1, isFinished: false, formData: {}, photos: [] };
     },
     uploadPhotos: (state, action) => {
-      state.photos = action.payload.map(file => file.name); 
+      // action.payload is now an array of Cloudinary URLs (strings)
+      state.photos = Array.isArray(action.payload) ? action.payload : [];
     },
     incrementStep: (state) => {
       state.step += 1;

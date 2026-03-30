@@ -93,12 +93,12 @@
 import React from 'react'
 
 const localities = [
-  { id: 1, name: 'Bandra West', city: 'Mumbai', properties: 1234, image: "https://newprojects.99acres.com/projects/serene_estates/serene_nsl_nakshatra/images/0f9p7rb_1723622725_511900669_med.jpg" },
+  { id: 1, name: 'Bandra West', city: 'Mumbai', properties: 1234, image: "https://via.placeholder.com/400x300?text=Bandra+West&bg=E8F3F8&textColor=333" },
   { id: 2, name: 'Indiranagar', city: 'Bangalore', properties: 987, image: "https://newprojects.99acres.com/projects/kalpana_struct-con/kalpana_the_olympia/images/pt2eur5_1720854104_504336331_med.jpg" },
   { id: 3, name: 'Vasant Kunj', city: 'Delhi', properties: 1543, image: "https://newprojects.99acres.com/projects/raamah_lifespace/raamah_ellemento/images/hmbtg06_1717240937_495724244_med.jpg" },
   { id: 4, name: 'Koregaon Park', city: 'Pune', properties: 765, image: "https://newprojects.99acres.com/projects/concorde/concorde_mayfair/images/fmd7uj2_1727938313_522221791_med.jpg" },
   { id: 5, name: 'Salt Lake City', city: 'Kolkata', properties: 654, image: "https://newprojects.99acres.com/projects/sumadhura_group/sumadhura_sarang/images/ephnrvf_1699512988_455609420_med.jpg" },
-  { id: 6, name: 'Adyar', city: 'Chennai', properties: 876, image: "https://newprojects.99acres.com/projects/dsr_infrastructure/dsr_elixir/images/pdbleqt_1720003493_502164911_med.jpg" },
+  { id: 6, name: 'Adyar', city: 'Chennai', properties: 876, image: "https://via.placeholder.com/400x300?text=Adyar+Chennai&bg=F3E8F8&textColor=333" },
 ]
 
 export default function PopularLocalities() {

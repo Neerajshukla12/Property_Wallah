@@ -229,16 +229,30 @@ const SingleP = () => {
             </button>
           </div>
         </div>
-        <div className="mt-8 w-full flex items-center justify-center gap-4  border-t-[0.5px] py-8 border-gray-300">
-          <div className=" overflow-hidden bg-blue-100 rounded-t-2xl  ">
-            <h2 className="text-sm text-blue-500 bg-cyan-050 px-4 py-2 font-semibold mb-4">
-              Property Images
+        <div className="mt-8 w-full flex flex-col md:flex-row items-start justify-center gap-4 border-t-[0.5px] py-8 border-gray-300">
+          <div className="overflow-hidden bg-blue-50 rounded-2xl w-full md:w-1/2">
+            <h2 className="text-sm text-blue-500 px-4 py-2 font-semibold mb-2">
+              Property Images ({propData?.media?.photos?.length || 0})
             </h2>
-            <img
-              src="https://tse1.mm.bing.net/th?id=OIP.e1_IIdzBq8phEuVl2pXuuAHaEE&pid=Api&P=0&h=180"
-              className="h-96 m-2"
-              alt="property"
-            />
+            {propData?.media?.photos?.length > 0 ? (
+              <div className="grid grid-cols-2 gap-2 p-2">
+                {propData.media.photos.map((photoUrl, idx) => (
+                  <img
+                    key={idx}
+                    src={photoUrl}
+                    alt={`property-photo-${idx + 1}`}
+                    className="w-full h-48 object-cover rounded-lg"
+                    onError={(e) => {
+                      e.target.src = 'https://via.placeholder.com/400x300?text=Image+Not+Available';
+                    }}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center h-48 bg-gray-100 rounded-lg m-2">
+                <p className="text-gray-400 text-sm">No photos uploaded</p>
+              </div>
+            )}
           </div>
           <div className="w-1/2 bg-green-cool-100 bg-opacity-15 p-4">
             <h2 className="text-lg text-gray-500 font-semibold mb-4">

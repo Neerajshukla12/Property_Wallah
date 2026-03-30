@@ -37,7 +37,7 @@ function App() {
     if (!loading && properties.length === 0) {
       dispatch(fetchAllProperties());
     }
-  }, [dispatch, loading, properties.length]);
+  }, [dispatch]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

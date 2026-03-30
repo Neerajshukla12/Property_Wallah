@@ -3,7 +3,7 @@ import axios from "axios";
 import { getUserFromLocalStorage } from "./localStorage";
 
 const customFetch = axios.create({
-  baseURL: `https://`,
+  baseURL: `https://property-wala-backend.vercel.app`,
 });
 
 customFetch.interceptors.request.use((config) => {

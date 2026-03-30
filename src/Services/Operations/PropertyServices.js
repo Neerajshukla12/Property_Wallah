@@ -17,7 +17,7 @@ const handleApiRequest = async (method, url, data, successMessage, errorMessage,
   const toastId = showToast ? toast.loading(`${successMessage}...`) : null;
   const headers = {
     ...(token && { Authorization: `Bearer ${token}` }),
-    ...(method !== "GET" && method !== "DELETE" && { "Content-Type": "multipart/form-data" }),
+    ...(method !== "GET" && method !== "DELETE" && { "Content-Type": "application/json" }),
   };
 
   console.log(`HTTP Method: ${method}, URL: ${url}`);

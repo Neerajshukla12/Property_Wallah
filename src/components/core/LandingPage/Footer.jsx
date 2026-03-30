@@ -21,10 +21,10 @@ const Footer = () => {
 
           <div className="flex flex-col gap-4">
             <div className="text-white font-bold text-lg mb-2">Company</div>
-            <div className="text-white font-medium text-base cursor-pointer" onClick={() => navigate("/aboutus")}>
+            <div className="text-white font-medium text-base cursor-pointer" onClick={() => navigate("/info/about-us")}>
               About us
             </div>
-            <div className="text-white font-medium text-base cursor-pointer" onClick={() => navigate("/contactus")}>
+            <div className="text-white font-medium text-base cursor-pointer" onClick={() => navigate("/contact-us")}>
               Contact us
             </div>
             <div className="text-white font-medium text-base">Careers with us</div>
@@ -51,9 +51,13 @@ const Footer = () => {
 
         <div className="flex flex-col md:w-[40%] ">
           <div className="text-white font-bold text-lg mb-2">Contact Us</div>
-          <p className="text-white font-medium text-base">+919664265932 </p>
-          <p className="text-white font-normal text-sm opacity-70 mt-1">Monday - Saturday (9:00Am to 7:00PM IST)</p>
-          <div className="text-white font-normal text-xs mt-6">Email - bahadurdangi100@gmail.com </div>
+          <a href="tel:+917071488745" className="text-white font-medium text-base hover:text-blue-400 transition-colors">
+            +91 70714 88745
+          </a>
+          <p className="text-white font-normal text-sm opacity-70 mt-1">Monday - Saturday (9:00 AM to 7:00 PM IST)</p>
+          <a href="mailto:shukla7071@gmail.com" className="text-white font-normal text-sm mt-3 hover:text-blue-400 transition-colors">
+            Email - shukla7071@gmail.com
+          </a>
           <div className="text-white font-bold text-lg mt-6">Connect with us</div>
 
           <div className="flex gap-4 mt-4">

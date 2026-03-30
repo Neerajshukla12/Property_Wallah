@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { incrementStep, uploadPhotos, resetForm } from '../../../Redux/FormDataSlice.js';
+import { useCloudinaryUpload } from '../../../hooks/useCloudinaryUpload';
 import StepsCounter from './StepsCounter';
 
 export default function PostPhotos() {
@@ -10,7 +11,11 @@ export default function PostPhotos() {
   const [propertyScore, setPropertyScore] = useState(66)
   const currentStep = 4;
   const [media, setMedia] = useState([]);
+  const [uploadedUrls, setUploadedUrls] = useState([]);
   const [errors, setErrors] = useState({});
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const { uploadMultipleImages } = useCloudinaryUpload();
 
   const handleMediaChange = (e) => { 
     const files = Array.from(e.target.files);
@@ -21,14 +26,29 @@ export default function PostPhotos() {
     setMedia((prevMedia) => prevMedia.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (media.length === 0) {
       setErrors({ media: 'Please upload at least one photo or video' });
       return;
     }
-    dispatch(uploadPhotos(media));
-    dispatch(incrementStep());
+
+    setUploading(true);
+    setErrors({});
+
+    try {
+      const uploadedFiles = await uploadMultipleImages(media);
+      const urls = uploadedFiles.map((file) => file.url);
+      setUploadedUrls(urls);
+      dispatch(uploadPhotos(urls));
+      dispatch(incrementStep());
+    } catch (error) {
+      setErrors({ media: `Upload failed: ${error.message}` });
+      console.error('Cloudinary upload error:', error);
+    } finally {
+      setUploading(false);
+      setUploadProgress(0);
+    }
   };
 
   const handleSkip = () => {
@@ -88,16 +108,36 @@ export default function PostPhotos() {
                         <source src={URL.createObjectURL(file)} type={file.type} />
                       </video>
                     )}
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveMedia(index)}
-                      className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 hover:bg-red-700 transition-colors"
-                    >
-                      &times;
-                    </button>
+                    {!uploading && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveMedia(index)}
+                        className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 hover:bg-red-700 transition-colors"
+                      >
+                        &times;
+                      </button>
+                    )}
+                    {uploading && (
+                      <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
+                        <div className="text-white text-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-2"></div>
+                          <p className="text-xs">Uploading...</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
+
+              {/* Upload Progress */}
+              {uploading && (
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <p className="text-sm text-blue-800 mb-2">Uploading {media.length} file(s) to Cloudinary...</p>
+                  <div className="w-full bg-blue-200 rounded-full h-2">
+                    <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${(uploadProgress / media.length) * 100}%` }}></div>
+                  </div>
+                </div>
+              )}
 
               {/* Tips Section */}
               <div className="bg-blue-50 p-6 rounded-lg">
@@ -154,21 +194,24 @@ export default function PostPhotos() {
               <div className="flex gap-4">
                 <button
                   type="submit"
-                  className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  disabled={uploading || media.length === 0}
+                  className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Continue
+                  {uploading ? 'Uploading...' : 'Continue'}
                 </button>
                 <button
                   type="button"
                   onClick={handleSkip}
-                  className="px-8 py-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
+                  disabled={uploading}
+                  className="px-8 py-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continue without photos
                 </button>
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-8 py-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
+                  disabled={uploading}
+                  className="px-8 py-3 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Cancel
                 </button>

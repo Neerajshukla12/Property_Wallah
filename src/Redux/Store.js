@@ -7,6 +7,8 @@ import CityReducer from './SelectedCity'
 import postPropertyReducer from './PostProperty.js'
 import formDataReducer from './FormDataSlice.js'
 import propertySlice from "./PropertySlice.js";
+import wishlistReducer from './Wishlist.js';
+import fileUploadReducer from './FileUploadSlice.js';
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +20,7 @@ export const store = configureStore({
     postProperty: postPropertyReducer,
     formData: formDataReducer,
     properties: propertySlice,
+    wishlist: wishlistReducer,
+    fileUpload: fileUploadReducer,
   },
 });
