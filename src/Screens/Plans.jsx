@@ -1,4 +1,4 @@
-import CallbackModal from "../components/core/Plans/CallBackModal";
+import CallbackModal from "../components/core/Plans/CallbackModal";
 import { Navbar } from "../components/common/Navbar";
 import React, { useState, useEffect } from "react";
 import PricingCard from "../components/core/Plans/PricingCard";
